@@ -27,7 +27,7 @@ jobs:
         run: git config user.email "eldar.jah@gmail.com" && git config user.name "Git Workflow"
 
       - name: Git push
-        run: git add pom.xml && git commit -m "Auto-versioning" && git push origin master
+        run: git add pom.xml && git commit -m "Auto-versioning" && git push origin main
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
