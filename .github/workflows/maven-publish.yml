@@ -29,11 +29,11 @@ jobs:
 
       - name: Release
         run: |
-          currentVersion=$(cat pom.xml | sed -e ':a;N;$!ba;s:\n::g;s: *::g;s:.*<project\.version>\(.*\)-SNAPSHOT<\/project\.version>.*:\1:g')
+          currentVersion=$(cat pom.xml | sed -e ':a;N;$!ba;s:\n::g;s: *::g;s:.*<version>\(.*\)-SNAPSHOT<\/version>.*:\1:g')
           echo "--- Releasing: $currentVersion ---"
           sed -i "s:$currentVersion-SNAPSHOT:$currentVersion:g" pom.xml
           mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DskipTests
-          echo "::set-env name=currentVersion::$currentVersion"
+          echo "currentVersion=$currentVersion" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
