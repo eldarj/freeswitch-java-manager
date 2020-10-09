@@ -30,7 +30,7 @@ jobs:
       - name: Release
         run: |
           currentVersion=$(cat pom.xml | sed -e ':a;N;$!ba;s:\n::g;s: *::g;s:.*<project\.version>\(.*\)-SNAPSHOT<\/project\.version>.*:\1:g')
-          echo "Release: $currentVersion"
+          echo "--- Releasing: $currentVersion ---"
           sed -i "s:$currentVersion-SNAPSHOT:$currentVersion:g" pom.xml
           mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DskipTests
           echo "::set-env name=currentVersion::$currentVersion"
@@ -42,15 +42,18 @@ jobs:
           currentVerArr=($(echo $currentVersion | tr '.' '\n'))
           currentVerArr[2]=$((currentVerArr[2] + 1))
           IFS=. eval 'nextSnapshotVersion="${currentVerArr[*]}"'
-          echo "Bump to $nextSnapshotVersion-SNAPSHOT"
+          echo "--- Bump to $nextSnapshotVersion-SNAPSHOT ---"
           sed -i "s:$currentVersion:$nextSnapshotVersion-SNAPSHOT:g" pom.xml
 
       - name: Git push
         run: |
           git config user.email "eldar.jah@gmail.com"
           git config user.name "Git Workflow"
+          echo "--- Pushing to `main` ---"
+          git diff
           git add pom.xml
           git commit -m "Git Workflow Auto Versioning"
           git push origin main
+          echo "--- Successfully pushed to `main` ---"
         env:
           GITHUB_TOKEN: ${{ github.token }}
