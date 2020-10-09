@@ -22,6 +22,14 @@
         <jackson.xml.version>2.11.2</jackson.xml.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/eldarj/freeswitch-manager-sidecar</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <!-- SPRING -->
         <dependency>
