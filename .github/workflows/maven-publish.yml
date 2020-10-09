@@ -22,6 +22,14 @@ jobs:
       - name: Cat pom
         run: cat pom.xml
 
+      - name: Git config
+        run: git config user.email "eldar.jah@gmail.com" && git config user.name "Git Workflow"
+
+      - name: Git push
+        run: git add pom.xml && git commit -m "Auto-versioning" && git push origin master
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
@@ -34,14 +42,5 @@ jobs:
 
       - name: Publish to GitHub Packages Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DskipTests
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Git config
-        run: git config user.email "eldar.jah@gmail.com" && git config user.name "Git Workflow"
-
-      - name: Git push
-        run: git add pom.xml && git commit -m "Auto-versioning" && git push
-
         env:
           GITHUB_TOKEN: ${{ github.token }}
