@@ -17,10 +17,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Bump version
-        run: sed -i 's/1.0.1-SNAPSHOT/test-snapshot-2/g' pom.xml
+        run: sed -i 's/1.0.1-SNAPSHOT/test-snapshot-3/g' pom.xml
 
-      - name: Cat pom
-        run: cat pom.xml
+      - name: Cat version
+        run: cat pom.xml | grep <version>
 
       - name: Set up JDK 11
         uses: actions/setup-java@v1
@@ -42,3 +42,5 @@ jobs:
 
       - name: Push to repository
         run: git add pom.xml && git commit -m "Auto-versioning" && git push
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
