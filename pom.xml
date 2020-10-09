@@ -17,7 +17,7 @@
     <description>FS Manager Service</description>
 
     <properties>
-        <project.version>1.0.1-SNAPSHOT</project.version>
+        <project.version>1.0.2-SNAPSHOT</project.version>
         <java.version>11</java.version>
         <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
         <jackson.xml.version>2.11.2</jackson.xml.version>
