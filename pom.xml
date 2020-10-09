@@ -12,7 +12,7 @@
 
     <groupId>org.eja</groupId>
     <artifactId>fs-manager-slim</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>test-snapshot-4</version>
     <name>fs-manager-slim</name>
     <description>FS Manager Service</description>
 
