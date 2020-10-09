@@ -30,7 +30,7 @@ jobs:
       - name: Release
         run: |
           currentVersion=$(cat pom.xml | sed -e ':a;N;$!ba;s:\n::g;s: *::g;s:.*<version>\(.*\)-SNAPSHOT<\/version>.*:\1:g')
-          echo "--- Releasing: $currentVersion ---"
+          echo "--- Releasing: fs-manager-slim-$currentVersion ---"
           sed -i "s:$currentVersion-SNAPSHOT:$currentVersion:g" pom.xml
           sed -i "s:<artifactId>fs-manager-slim</artifactId>:<artifactId>fs-manager-slim-$currentVersion</artifactId>:g" pom.xml
           mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DskipTests
@@ -56,6 +56,6 @@ jobs:
           git add pom.xml
           git commit -m "Git Workflow Auto Versioning"
           git push origin main
-          echo "--- Successfully pushed to `main` ---"
+          echo "--- Successfully pushed to main ---"
         env:
           GITHUB_TOKEN: ${{ github.token }}
