@@ -1,0 +1,12 @@
+server:
+  port: 34080
+
+spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:development}
+
+freeswitch:
+  user-directory-path: ${USER_DIRECTORY_PATH}
+  host: ${HOST}
+  port: ${HTTP_PORT}
+  webapi: ${WEB_API}

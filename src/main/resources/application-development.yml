@@ -1,0 +1,13 @@
+server:
+  port: 34080
+
+spring:
+  profiles:
+    active: development
+
+freeswitch:
+  user-directory-path: /usr/local/freeswitch/conf/directory/default/387.xml
+  host: 127.0.0.1
+  port: 8080
+  webapi: http://${freeswitch.host}:${freeswitch.port}/webapi
+
