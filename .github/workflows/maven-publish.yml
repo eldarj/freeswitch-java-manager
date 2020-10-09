@@ -8,8 +8,8 @@ on:
     types: [created]
 
 jobs:
-  bump-version:
-    name: Pre-release version bump
+  build:
+    name: Build and release
     runs-on: ubuntu-latest
 
     steps:
@@ -20,18 +20,7 @@ jobs:
         run: sudo apt-get update; sudo apt-get install -y sed
 
       - name: Bump
-        run: sed 's/1.0.1-SNAPSHOT/test-snapshot/g' pom.xml
-
-      - name: Cat pom
-        run: cat pom.xml
-
-  build:
-    name: Build and release
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Sync repository
-        uses: actions/checkout@v2
+        run: sed -i 's/1.0.1-SNAPSHOT/test-snapshot/g' pom.xml
 
       - name: Set up JDK 11
         uses: actions/setup-java@v1
