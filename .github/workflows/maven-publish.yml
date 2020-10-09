@@ -17,20 +17,6 @@ jobs:
       - name: Sync repository
         uses: actions/checkout@v2
 
-      - name: Bump version
-        run: sed -i 's/1.0.1-SNAPSHOT/test-snapshot-4/g' pom.xml
-
-      - name: Cat pom
-        run: cat pom.xml
-
-      - name: Git config
-        run: git config user.email "eldar.jah@gmail.com" && git config user.name "Git Workflow"
-
-      - name: Git push
-        run: git add pom.xml && git commit -m "Auto-versioning" && git push origin main
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
@@ -41,7 +27,30 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml -DskipTests
 
-      - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DskipTests
+      - name: Release
+        run: |
+          currentVersion=$(cat pom.xml | sed -e ':a;N;$!ba;s:\n::g;s: *::g;s:.*<project\.version>\(.*\)-SNAPSHOT<\/project\.version>.*:\1:g')
+          echo "Release: $currentVersion"
+          sed -i "s:$currentVersion-SNAPSHOT:$currentVersion:g" pom.xml
+          mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DskipTests
+          echo "::set-env name=currentVersion::$currentVersion"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Bump version
+        run: |
+          currentVerArr=($(echo $currentVersion | tr '.' '\n'))
+          currentVerArr[2]=$((currentVerArr[2] + 1))
+          IFS=. eval 'nextSnapshotVersion="${currentVerArr[*]}"'
+          echo "Bump to $nextSnapshotVersion-SNAPSHOT"
+          sed -i "s:$currentVersion:$nextSnapshotVersion-SNAPSHOT:g" pom.xml
+
+      - name: Git push
+        run: |
+          git config user.email "eldar.jah@gmail.com"
+          git config user.name "Git Workflow"
+          git add pom.xml
+          git commit -m "Git Workflow Auto Versioning"
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ github.token }}
