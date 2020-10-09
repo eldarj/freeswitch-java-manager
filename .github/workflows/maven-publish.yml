@@ -32,7 +32,9 @@ jobs:
           currentVersion=$(cat pom.xml | sed -e ':a;N;$!ba;s:\n::g;s: *::g;s:.*<version>\(.*\)-SNAPSHOT<\/version>.*:\1:g')
           echo "--- Releasing: $currentVersion ---"
           sed -i "s:$currentVersion-SNAPSHOT:$currentVersion:g" pom.xml
+          sed -i "s:<artifactId>fs-manager-slim</artifactId>:<artifactId>fs-manager-slim-$currentVersion</artifactId>:g" pom.xml
           mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DskipTests
+          sed -i "s:<artifactId>fs-manager-slim-$currentVersion</artifactId>:<artifactId>fs-manager-slim</artifactId>:g" pom.xml
           echo "currentVersion=$currentVersion" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ github.token }}
