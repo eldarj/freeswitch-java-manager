@@ -20,7 +20,7 @@ jobs:
         run: sudo apt-get update; sudo apt-get install -y sed
 
       - name: Bump
-        run: sed 's/0.0.1-SNAPSHOT/test-snapshot/g' pom.xml
+        run: sed 's/1.0.1-SNAPSHOT/test-snapshot/g' pom.xml
 
       - name: Cat pom
         run: cat pom.xml
