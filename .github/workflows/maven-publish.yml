@@ -37,13 +37,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Push to repository
-        run: git status && \
-        git config user.email "eldar.jah@gmail.com" && \
-        git config user.name "Git Workflow"
-        git add pom.xml && \
-        git commit -m "Auto-versioning" && \
-        git push
+      - name: Git config
+        run: git config user.email "eldar.jah@gmail.com" && git config user.name "Git Workflow"
+
+      - name: Git push
+        run: git add pom.xml && git commit -m "Auto-versioning" && git push
 
         env:
           GITHUB_TOKEN: ${{ github.token }}
