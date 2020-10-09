@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <groupId>org.eja</groupId>
     <artifactId>fs-manager-slim</artifactId>
     <name>fs-manager-slim</name>
