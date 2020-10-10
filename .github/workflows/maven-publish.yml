@@ -30,7 +30,7 @@ jobs:
       - name: Release
         run: |
           currentVersion=$(cat pom.xml | sed -e ':a;N;$!ba;s:\n::g;s: *::g;s:.*<version>\(.*\)-SNAPSHOT<\/version>.*:\1:g')
-          echo "--- Releasing: fs-manager-slim-$currentVersion ---"
+          echo "--- Releasing: org.eja:fs-manager-slim:$currentVersion ---"
           sed -i "s:$currentVersion-SNAPSHOT:$currentVersion:g" pom.xml
           mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DskipTests
           echo "currentVersion=$currentVersion" >> $GITHUB_ENV
