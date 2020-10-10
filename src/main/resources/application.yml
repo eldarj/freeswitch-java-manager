@@ -1,12 +1,12 @@
 server:
-  port: 34080
+  port: ${SERVER_PORT}
 
 spring:
   profiles:
     active: ${ACTIVE_PROFILE:development}
 
 freeswitch:
-  user-directory-path: ${USER_DIRECTORY_PATH}
-  host: ${HOST}
-  port: ${HTTP_PORT}
-  webapi: ${WEB_API}
+  user-directory-path: ${FS_USER_DIRECTORY_PATH}
+  host: ${FS_HOST}
+  port: ${FS_HTTP_PORT}
+  webapi: ${FS_WEB_API_URL}
